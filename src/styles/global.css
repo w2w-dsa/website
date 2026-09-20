@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Anderson Grotesk";
+  src: url("/fonts/AndersonGrotesk.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Anderson Grotesk";
+  src: url("/fonts/AndersonGrotesk-Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-w2w-dark: #27252a;
+  --color-w2w-muted: #c0adad;
+  --color-w2w-red: #e63b2e;
+  --color-w2w-coral: #f85a3e;
+
+  --font-sans: "Anderson Grotesk", system-ui, sans-serif;
+  --font-display: "Anderson Grotesk", system-ui, sans-serif;
+
+  --font-weight-black: 900;
+  --font-weight-regular: 400;
+
+  --background-image-tex-1: url("/textures/W2W_Background-1.png");
+  --background-image-tex-2: url("/textures/W2W_Background-2.png");
+  --background-image-tex-3: url("/textures/W2W_Background-3.png");
+  --background-image-tex-4: url("/textures/W2W_Background-4.png");
+  --background-image-tex-5: url("/textures/W2W_Background-5.png");
+  --background-image-tex-6: url("/textures/W2W_Background-6.png");
+}
+
+@layer base {
+  body {
+    @apply font-sans text-w2w-muted font-regular bg-w2w-dark;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display text-w2w-muted font-black text-left;
+  }
+  p,
+  li {
+    @apply text-left;
+  }
+}
