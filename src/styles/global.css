@@ -63,6 +63,6 @@
   }
 
   .pou-highlight p {
-    @apply text-lg md:text-xl font-black leading-relaxed text-w2w-muted;
+    @apply text-lg md:text-lg font-regular leading-relaxed text-w2w-muted;
   }
 }
