@@ -1,0 +1,51 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  highlight: string;
+  texture: string;
+  svg?: string;
+}
+
+const { title, description, highlight, texture, svg } = Astro.props;
+---
+
+<section class:list={["px-6 md:px-16 py-20 bg-w2w-dark bg-cover bg-center relative overflow-hidden", texture]}>
+  <div class="absolute inset-0 bg-w2w-dark/80"></div>
+  
+  {svg && (
+    <div class="absolute top-10 right-10 opacity-20 pointer-events-none">
+      <img src={svg} alt="" class="w-48 h-48 md:w-64 md:h-64" />
+    </div>
+  )}
+
+  <div class="max-w-6xl space-y-8 relative z-10">
+    
+    <div class="space-y-4">
+      <h2 class="text-3xl md:text-4xl font-black leading-tight text-w2w-muted">
+        {title}
+      </h2>
+      <div class="w-32 h-1.5 bg-gradient-to-r from-w2w-red to-w2w-coral"></div>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-8 md:gap-12">
+      
+      <div class="md:w-1/2">
+        <p class="text-lg md:text-xl leading-relaxed font-regular text-w2w-muted">
+          {description}
+        </p>
+      </div>
+
+      <div class="hidden md:block md:w-1.5 bg-gradient-to-b from-w2w-red to-w2w-coral"></div>
+      <div class="md:hidden w-24 h-1.5 bg-gradient-to-r from-w2w-red to-w2w-coral mx-auto"></div>
+
+      <div class="md:w-1/2">
+        <p class="text-lg md:text-xl font-black leading-relaxed text-w2w-muted">
+          {highlight}
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>

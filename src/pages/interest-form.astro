@@ -1,0 +1,94 @@
+---
+// src/pages/interest-form.astro
+import '../styles/global.css';
+import Head from '../components/Head.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+import FormField from '../components/FormField.astro';
+
+const branches = [
+'Bronx/Upper Manhattan',
+  'Central Brooklyn',
+  'Flatbush',
+  'Lower Manhattan',
+  'North Brooklyn',
+  'Queens',
+  'South Brooklyn',
+  'Staten Island',
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <Head 
+    title="World to Win | Interest Form" 
+    description="Sign up to join the World to Win coalition for NYC-DSA." 
+  />
+  <body class="bg-w2w-dark text-w2w-muted antialiased font-sans min-h-screen flex flex-col">
+    
+    <main class="flex-grow px-6 md:px-16 py-20 w-full">
+      <div class="max-w-2xl mx-auto space-y-12">
+        
+        <div class="space-y-4">
+          <h1 class="text-4xl md:text-5xl font-black text-w2w-muted">
+            Join Us
+          </h1>
+          <div class="w-24 h-1.5 bg-gradient-to-r from-w2w-red to-w2w-coral"></div>
+          <p class="text-xl text-w2w-muted font-regular">
+            If you are an NYC-DSA member interested in building this chapter, leave your info below and we will reach out.
+          </p>
+        </div>
+
+        <form 
+          name="interest" 
+          method="POST" 
+          data-netlify="true" 
+          class="space-y-8"
+        >
+          <input type="hidden" name="form-name" value="interest" />
+
+          <FormField 
+            type="text"
+            name="name"
+            label="Name"
+            required
+            placeholder="Your full name"
+          />
+
+          <FormField 
+            type="email"
+            name="email"
+            label="Email"
+            required
+            placeholder="your@email.com"
+          />
+
+          <FormField 
+            type="select"
+            name="branch"
+            label="NYC-DSA Branch"
+            required
+            placeholder="Select your branch"
+            options={branches}
+          />
+
+          <FormField 
+            type="textarea"
+            name="message"
+            label="Message (Optional)"
+            placeholder="Why are you interested in World to Win?"
+            rows={5}
+          />
+
+          <!-- Submit Button -->
+          <div class="pt-6">
+            <Button>Submit Interest</Button>
+          </div>
+
+        </form>
+      </div>
+    </main>
+
+    <Footer />
+  </body>
+</html>

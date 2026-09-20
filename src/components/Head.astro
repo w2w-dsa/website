@@ -1,0 +1,16 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "World to Win is a coalition of NYC-DSA members fighting for democratic socialism." } = Astro.props;
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/svgs/sphere1.svg" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>

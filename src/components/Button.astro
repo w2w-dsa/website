@@ -1,0 +1,27 @@
+---
+export interface Props {
+  href?: string;
+  variant?: 'default' | 'primary';
+}
+
+const { href, variant = 'default' } = Astro.props;
+
+const baseClasses = "inline-block px-8 py-3 font-black text-lg transition-all duration-200 border-2 cursor-pointer";
+
+const variantClasses = {
+  default: "bg-transparent border-w2w-muted text-w2w-muted hover:border-w2w-red hover:text-w2w-red active:bg-gradient-to-r active:from-w2w-red active:to-w2w-coral active:text-w2w-dark active:border-transparent",
+  primary: "bg-gradient-to-r from-w2w-red to-w2w-coral border-transparent text-w2w-dark hover:opacity-90 active:opacity-80"
+};
+
+const classes = `${baseClasses} ${variantClasses[variant]}`;
+---
+
+{href ? (
+  <a href={href} class:list={[classes, "no-underline"]}>
+    <slot />
+  </a>
+) : (
+  <button class={classes}>
+    <slot />
+  </button>
+)}
