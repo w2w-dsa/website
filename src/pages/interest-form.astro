@@ -7,14 +7,15 @@ import Button from '../components/Button.astro';
 import FormField from '../components/FormField.astro';
 
 const branches = [
-'Bronx/Upper Manhattan',
-  'Central Brooklyn',
-  'Flatbush',
+  'Bronx / Upper Manhattan',
   'Lower Manhattan',
   'North Brooklyn',
-  'Queens',
+  'Central Brooklyn',
   'South Brooklyn',
+  'Flatbush',
+  'Queens',
   'Staten Island',
+  'At-Large'
 ];
 ---
 
@@ -35,16 +36,19 @@ const branches = [
           </h1>
           <div class="w-24 h-1.5 bg-gradient-to-r from-w2w-red to-w2w-coral"></div>
           <p class="text-xl text-w2w-muted font-regular">
-            If you are an NYC-DSA member interested in building this chapter, leave your info below and we will reach out.
+            World to Win is a coalition of NYC-DSA members building a chapter ready to connect our long-term vision for democratic socialism to the day-to-day struggle for freedom and dignity. 
+          </p>
+          <p class="text-xl text-w2w-muted font-regular">
+            If you're interested in joining our struggle, please fill out the form below and one of our onboarders will reach out to you.
           </p>
         </div>
 
         <form 
           name="interest" 
           method="POST" 
+          action="/success"
           netlify
           class="space-y-8"
-          action="/success"
         >
           <input type="hidden" name="form-name" value="interest" />
 
@@ -53,7 +57,7 @@ const branches = [
             name="name"
             label="Name"
             required
-            placeholder="Your full name"
+            placeholder="Your name"
           />
 
           <FormField 
@@ -65,9 +69,24 @@ const branches = [
           />
 
           <FormField 
+            type="tel"
+            name="phone"
+            label="Phone Number"
+            required
+            placeholder="(555) 123-4567"
+          />
+
+          <FormField 
+            type="text"
+            name="pronouns"
+            label="Pronouns"
+            placeholder="e.g., she/her, they/them, he/him"
+          />
+
+          <FormField 
             type="select"
             name="branch"
-            label="NYC-DSA Branch"
+            label="What branch are you in?"
             required
             placeholder="Select your branch"
             options={branches}
@@ -75,11 +94,56 @@ const branches = [
 
           <FormField 
             type="textarea"
-            name="message"
-            label="Message (Optional)"
-            placeholder="Why are you interested in World to Win?"
-            rows={5}
+            name="organizing_work"
+            label="Please describe your current organizing work within DSA"
+            required
+            placeholder="What committees, campaigns, or working groups are you involved in?"
+            rows={4}
           />
+
+          <FormField 
+            type="text"
+            name="learned_about"
+            label="How did you learn about w2w?"
+            placeholder="e.g., Instagram, a friend, a meeting..."
+          />
+
+          <FormField 
+            type="textarea"
+            name="why_interested"
+            label="Why are you interested in w2w?"
+            placeholder="Share your thoughts..."
+            rows={4}
+          />
+
+          <FormField 
+            type="textarea"
+            name="specific_experiences"
+            label="Please describe your specific experiences within DSA that inform your interest"
+            required
+            placeholder="What experiences have shaped your political perspective?"
+            rows={4}
+          />
+
+          <FormField 
+            type="text"
+            name="know_members"
+            label="Do you know any current members of w2w? If so, please name them"
+            placeholder="Optional"
+          />
+
+          <div class="flex items-start gap-4 pt-2">
+            <input 
+              type="checkbox" 
+              id="bulletin" 
+              name="bulletin" 
+              value="yes"
+              class="mt-1.5 w-5 h-5 accent-w2w-red border-2 border-w2w-muted/30 rounded-none cursor-pointer" 
+            />
+            <label for="bulletin" class="text-lg font-regular text-w2w-muted cursor-pointer leading-relaxed">
+              Yes, I would like to receive the World To Win member bulletin (short reflections by w2w comrades on our organizing and politics).
+            </label>
+          </div>
 
           <div class="pt-6">
             <Button>Submit Interest</Button>
