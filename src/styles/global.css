@@ -52,4 +52,17 @@
   li {
     @apply text-left;
   }
+  strong {
+    @apply font-black;
+  }
+}
+
+@layer components {
+  .pou-desc p {
+    @apply text-lg md:text-xl leading-relaxed font-regular text-w2w-muted;
+  }
+
+  .pou-highlight p {
+    @apply text-lg md:text-xl font-black leading-relaxed text-w2w-muted;
+  }
 }

@@ -30,19 +30,15 @@ const { title, description, highlight, texture, svg } = Astro.props;
 
     <div class="flex flex-col md:flex-row gap-8 md:gap-12">
       
-      <div class="md:w-1/2">
-        <p class="text-lg md:text-xl leading-relaxed font-regular text-w2w-muted">
-          {description}
-        </p>
+      <div class="md:w-1/2 pou-desc">
+        <slot name="description" />
       </div>
 
       <div class="hidden md:block md:w-1.5 bg-gradient-to-b from-w2w-red to-w2w-coral"></div>
       <div class="md:hidden w-24 h-1.5 bg-gradient-to-r from-w2w-red to-w2w-coral mx-auto"></div>
 
       <div class="md:w-1/2">
-        <p class="text-lg md:text-xl font-black leading-relaxed text-w2w-muted">
-          {highlight}
-        </p>
+        <slot name="highlight" />
       </div>
 
     </div>
