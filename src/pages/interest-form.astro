@@ -1,24 +1,45 @@
 ---
 // src/pages/interest-form.astro
-import '../styles/global.css';
-import Head from '../components/Head.astro';
-import Footer from '../components/Footer.astro';
-import Button from '../components/Button.astro';
-import FormField from '../components/FormField.astro';
+import "../styles/global.css";
+import Head from "../components/Head.astro";
+import Footer from "../components/Footer.astro";
+import Button from "../components/Button.astro";
+import FormField from "../components/FormField.astro";
+import CheckboxGroup from "../components/CheckboxGroup.astro";
+import CheckboxField from "../components/CheckboxField.astro";
+
+const membershipLength = [
+  "Joining now to support W2W",
+  "Less than 3 months",
+  "Less than 1 year",
+  "1–3 years",
+  "More than 3 years"
+];
 
 const branches = [
-  'Bronx / Upper Manhattan',
-  'Lower Manhattan',
-  'North Brooklyn',
-  'Central Brooklyn',
-  'South Brooklyn',
-  'Flatbush',
-  'Queens',
-  'Staten Island',
-  'At-Large'
+  "Queens",
+  "Bronx/Upper Manhattan (B/UM)",
+  "Flatbush",
+  "Lower Manhattan (Lowman)",
+  "North Brooklyn (NBK)",
+  "Central Brooklyn (CBK)",
+  "South Brooklyn (SBK)",
+  "Trying to form a new branch",
+  "I don\"t know"
+];
+
+const friendSupportOptions = [
+  "I only want to be contacted by my friend",
+  "I won’t be involved in DSA but anyone can contact me and I’ll vote as suggested to support my friend’s political work",
+];
+
+const optInOptions = [
+  { value: "signal", label: "W2W Supporter Announcements on Signal — updates, event invites, and voting reminders" },
+  { value: "email", label: "W2W Supporter Email list — occasional updates, Member Bulletin Supporter Edition (informal reflections and summations about our organizing and our politics, written by W2W members)" },
+  { value: "text", label: "W2W Supporter text bank list — voting reminders" },
+  { value: "none", label: "None" }
 ];
 ---
-
 <!doctype html>
 <html lang="en">
   <Head 
@@ -36,10 +57,15 @@ const branches = [
           </h1>
           <div class="w-24 h-1.5 bg-gradient-to-r from-w2w-red to-w2w-coral"></div>
           <p class="text-xl text-w2w-muted font-regular">
+          <strong>World to Win (W2W)</strong> is a coalition of NYC-DSA members fighting to connect our long-term vision for democratic socialism to the day-to-day struggle for freedom and dignity at our workplaces, apartment buildings, the ballot box, and the streets.
             World to Win is a coalition of NYC-DSA members building a chapter ready to connect our long-term vision for democratic socialism to the day-to-day struggle for freedom and dignity. 
           </p>
+          <p class="text-xl text-w2w-muted font-regular leading-relaxed">
+              Our members have led priority campaigns like <a href="https://wecanbreakthechain.com/" target="_blank" rel="noopener noreferrer" class="text-w2w-muted border-b border-w2w-muted/40 hover:text-w2w-red hover:border-w2w-red transition-colors">
+                Break the Chain </a> and Rapid Response to ICE, and have served as leaders on electoral campaigns from <a href="https://www.darializaforcongress.com/" target="_blank" rel="noopener noreferrer" class="text-w2w-muted border-b border-w2w-muted/40 hover:text-w2w-red hover:border-w2w-red transition-colors"> Darializa Avila Chevalier in Harlem </a> to <a href="https://eonforassembly.com/" target="_blank" rel="noopener noreferrer" class="text-w2w-muted border-b border-w2w-muted/40 hover:text-w2w-red hover:border-w2w-red transition-colors"> Eon Huntley in Bed-Stuy </a> and <a href="https://cct4nyc.com/" target="_blank" rel="noopener noreferrer" class="text-w2w-muted border-b border-w2w-muted/40 hover:text-w2w-red hover:border-w2w-red transition-colors"> Christian Celeste-Tate in East New York </a>. We have led powerful rank-and-file campaigns in our unions for better contracts, to endorse DSA candidates, and for a Free Palestine, and we have helped build tenant unions across the city, including citywide tenant assemblies. W2W members actively organize as member-leaders across every Branch and Working Group in NYC-DSA.
+            </p>
           <p class="text-xl text-w2w-muted font-regular">
-            If you're interested in joining our struggle, please fill out the form below and one of our onboarders will reach out to you.
+          If you’re interested in supporting or joining our struggle, <strong>please fill out the interest form below</strong>. 
           </p>
         </div>
 
@@ -47,17 +73,82 @@ const branches = [
           name="interest" 
           method="POST" 
           action="/success"
-          netlify
+          data-netlify="true" 
           class="space-y-8"
         >
           <input type="hidden" name="form-name" value="interest" />
 
-          <FormField 
-            type="text"
-            name="name"
-            label="Name"
+          <CheckboxGroup 
+            name="opt_in"
+            label="I’d like to learn more about World To Win! Opt me into the following lists to receive updates, event invites, and voting recommendations:"
             required
-            placeholder="Your name"
+            options={optInOptions}
+          />
+
+          <FormField 
+            type="select"
+            name="friend_support"
+            label="I’m just joining to support my friend!"
+            required
+            placeholder="Select an option"
+            options={friendSupportOptions}
+          />
+
+          <FormField 
+            type="select"
+            name="membership_length"
+            label="How long have you been an NYC-DSA member?"
+            required
+            placeholder="Select an option"
+            options={membershipLength}
+          />
+
+          <FormField 
+            type="select"
+            name="branch"
+            label="What is your NYC-DSA Branch?"
+            required
+            placeholder="Select your branch"
+            options={branches}
+          />
+
+          <CheckboxField 
+            name="one_on_one"
+            label="I’d like a 1:1 conversation with a W2W Core member to learn more!"
+            required
+          />
+
+          <FormField 
+            type="textarea"
+            name="organizing_work"
+            label="This is the organizing I do inside or outside of DSA:"
+            placeholder="What committees, campaigns, or working groups are you involved in?"
+            rows={4}
+          />
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FormField 
+              type="text"
+              name="first_name"
+              label="First Name"
+              required
+              placeholder="First name"
+            />
+            <FormField 
+              type="text"
+              name="last_name"
+              label="Last Name"
+              required
+              placeholder="Last name"
+            />
+          </div>
+
+          <FormField 
+            type="tel"
+            name="phone"
+            label="Phone Number"
+            required
+            placeholder="(555) 123-4567"
           />
 
           <FormField 
@@ -69,14 +160,6 @@ const branches = [
           />
 
           <FormField 
-            type="tel"
-            name="phone"
-            label="Phone Number"
-            required
-            placeholder="(555) 123-4567"
-          />
-
-          <FormField 
             type="text"
             name="pronouns"
             label="Pronouns"
@@ -84,66 +167,18 @@ const branches = [
           />
 
           <FormField 
-            type="select"
-            name="branch"
-            label="What branch are you in?"
-            required
-            placeholder="Select your branch"
-            options={branches}
-          />
-
-          <FormField 
-            type="textarea"
-            name="organizing_work"
-            label="Please describe your current organizing work within DSA"
-            required
-            placeholder="What committees, campaigns, or working groups are you involved in?"
-            rows={4}
-          />
-
-          <FormField 
             type="text"
             name="learned_about"
-            label="How did you learn about w2w?"
-            placeholder="e.g., Instagram, a friend, a meeting..."
-          />
-
-          <FormField 
-            type="textarea"
-            name="why_interested"
-            label="Why are you interested in w2w?"
-            placeholder="Share your thoughts..."
-            rows={4}
-          />
-
-          <FormField 
-            type="textarea"
-            name="specific_experiences"
-            label="Please describe your specific experiences within DSA that inform your interest"
-            required
-            placeholder="What experiences have shaped your political perspective?"
-            rows={4}
+            label="How did you learn about W2W?"
+            placeholder="e.g., Instagram, a friend, a social…"
           />
 
           <FormField 
             type="text"
             name="know_members"
-            label="Do you know any current members of w2w? If so, please name them"
+            label="Do you know any current members of W2W? If so, please name them:"
             placeholder="Optional"
           />
-
-          <div class="flex items-start gap-4 pt-2">
-            <input 
-              type="checkbox" 
-              id="bulletin" 
-              name="bulletin" 
-              value="yes"
-              class="mt-1.5 w-5 h-5 accent-w2w-red border-2 border-w2w-muted/30 rounded-none cursor-pointer" 
-            />
-            <label for="bulletin" class="text-lg font-regular text-w2w-muted cursor-pointer leading-relaxed">
-              Yes, I would like to receive the World To Win member bulletin (short reflections by w2w comrades on our organizing and politics).
-            </label>
-          </div>
 
           <div class="pt-6">
             <Button>Submit Interest</Button>
