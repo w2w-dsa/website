@@ -34,26 +34,23 @@ const optInOptions = [
           </div>
         </div>
 
-        <div class="bg-w2w-dark border-2 border-w2w-muted/20 p-8 space-y-6 mb-8">
-          <h1 class="text-2xl md:text-3xl font-black">World to Win Interest Form</h1>
-          <div class="space-y-4 text-lg leading-relaxed">
-            <p><strong class="font-black">World to Win (W2W)</strong> is a coalition of NYC-DSA members fighting to connect our long-term vision for democratic socialism to the day-to-day struggle for freedom and dignity at our workplaces, apartment buildings, the ballot box, and the streets.</p>
-            <p>Our members have led priority campaigns like Break the Chain and Rapid Response to ICE and have served as leaders on electoral campaigns from Darializa Avila Chevalier in Harlem to Eon Huntley in Bed-Stuy and Christian Celeste-Tate in East New York. We have led powerful rank-and-file campaigns in our unions for better contracts, to endorse DSA candidates, and for a Free Palestine, and we have helped build tenant unions across the city, including citywide tenant assemblies. W2W members actively organize as member-leaders across every Branch and Working Group in NYC-DSA.</p>
-            <p>If you’re interested in supporting or joining our struggle, <strong class="font-black">please fill out the interest form below</strong>.</p>
-          </div>
-        </div>
+          <h1 class="text-3xl md:text-3xl font-black">World to Win Interest Form</h1>
 
         <form name="interest" method="POST" data-netlify="true" action="/success" class="space-y-8">
           <input type="hidden" name="form-name" value="interest" />
 
           <FormStep step={1}>
+          <div class="space-y-4 text-lg leading-relaxed">
+            <p><strong class="font-black">World to Win (W2W)</strong> is a coalition of NYC-DSA members fighting to connect our long-term vision for democratic socialism to the day-to-day struggle for freedom and dignity at our workplaces, apartment buildings, the ballot box, and the streets.</p>
+            <p>Our members have led priority campaigns like Break the Chain and Rapid Response to ICE and have served as leaders on electoral campaigns from Darializa Avila Chevalier in Harlem to Eon Huntley in Bed-Stuy and Christian Celeste-Tate in East New York. We have led powerful rank-and-file campaigns in our unions for better contracts, to endorse DSA candidates, and for a Free Palestine, and we have helped build tenant unions across the city, including citywide tenant assemblies. W2W members actively organize as member-leaders across every Branch and Working Group in NYC-DSA.</p>
+            <p>If you’re interested in supporting or joining our struggle, <strong class="font-black">please fill out the interest form below</strong>.</p>
+          </div>
             <RadioGroup name="membership_length" label="How long have you been an NYC-DSA member?" required options={membershipOptions} />
             <div class="flex gap-4 mt-8">
               <StepButton onClick="handleStep1()" label="Continue" />
             </div>
           </FormStep>
 
-          <!-- STEP 2 (Placeholder) -->
           <FormStep step={2} hidden>
             <h2 class="text-2xl md:text-3xl font-black">Current DSA Members</h2>
             <TextField name="dsa_groups" label="What groups are you involved in within DSA?" placeholder="e.g. Labor WG, Racial Justice WG, B/UM Branch…" />
@@ -62,7 +59,7 @@ const optInOptions = [
               label="What is your interest in World To Win?" 
               required 
               options={[
-                "I’d like to become a World To Win member",
+                "I’d like to organize with W2W",
                 "I’d like to vote with W2W",
                 "I’d like to learn more about W2W"
               ]} 
@@ -73,7 +70,6 @@ const optInOptions = [
             </div>
           </FormStep>
 
-          <!-- STEP 3 (Placeholder) -->
   <FormStep step={3} hidden>
             <h2 class="text-2xl md:text-3xl font-black">Join DSA</h2>
             <p class="text-lg">To join World to Win, you must first be a member of NYC-DSA. <a href="https://www.dsausa.org/join/" target="_blank" rel="noopener noreferrer" class="text-w2w-red hover:text-w2w-coral underline font-black">Click here to join DSA</a>.</p>
@@ -106,7 +102,6 @@ const optInOptions = [
             </div>
           </FormStep>
 
-          <!-- STEP 4 (Placeholder) -->
           <FormStep step={4} hidden>
             <h2 class="text-2xl md:text-3xl font-black">Organize with W2W</h2>
             
@@ -133,7 +128,6 @@ const optInOptions = [
             </div>
           </FormStep>
 
-          <!-- STEP 5 -->
           <FormStep step={5} hidden>
             <TextAreaField name="organizing" label="Tell us a bit about your current or past organizing, either inside or outside DSA" placeholder="Share your organizing experience..." />
             <div class="flex gap-4 mt-8">
@@ -142,7 +136,6 @@ const optInOptions = [
             </div>
           </FormStep>
 
-          <!-- STEP 6 -->
           <FormStep step={6} hidden>
             <RadioGroup name="branch" label="What is your NYC-DSA Branch?" required options={branchOptions} />
             <div class="flex gap-4 mt-8">
@@ -151,7 +144,6 @@ const optInOptions = [
             </div>
           </FormStep>
 
-          <!-- STEP 7 -->
           <FormStep step={7} hidden>
             <h2 class="text-2xl md:text-3xl font-black">Opt In</h2>
             <CheckboxGroup label="I’d like to learn more about World To Win. Add me to get updates, event invites and voting recommendations:" required options={optInOptions} />
@@ -167,7 +159,6 @@ const optInOptions = [
             </div>
           </FormStep>
 
-          <!-- STEP 8 -->
           <FormStep step={8} hidden>
             <TextField name="friend_name" label="What is your friend’s name?" required placeholder="Your friend’s name" />
             <div class="flex gap-4 mt-8">
@@ -221,7 +212,7 @@ const optInOptions = [
         const selected = document.querySelector('input[name="w2w_interest"]:checked');
         if (!selected) { alert('Please select your interest.'); return; }
         
-        if (selected.value === "I’d like to become a World To Win member") {
+        if (/like to organize/.test(selected.value)) {
           navigateToStep(4);
         } else {
           navigateToStep(6);
@@ -248,7 +239,14 @@ const optInOptions = [
           alert('Please let us know if you know any members.'); 
           return; 
         }
-        navigateToStep(5);
+
+        const selected = document.querySelector('input[name="one_on_one_interest"]:checked');
+
+        if (selected.value === "Yes") {
+          navigateToStep(5);
+        } else {
+          navigateToStep(6);
+        }
       }
 
       function handleStep7() {
