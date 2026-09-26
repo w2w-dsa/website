@@ -1,0 +1,16 @@
+---
+export interface Props {
+  step: number;
+  title?: string;
+  hidden?: boolean;
+}
+
+const { step, title, hidden = false } = Astro.props;
+---
+
+<div class:list={["step", { "hidden": hidden }]} data-step={step}>
+  <div class="bg-w2w-dark border-2 border-w2w-muted/20 p-8 space-y-6">
+    {title && <h2 class="text-2xl md:text-3xl font-black">{title}</h2>}
+    <slot />
+  </div>
+</div>

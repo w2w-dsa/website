@@ -1,0 +1,21 @@
+---
+export interface Props {
+  onClick: string;
+  label: string;
+  isSubmit?: boolean;
+  variant?: 'primary' | 'secondary'
+}
+
+const { onClick, label, isSubmit = false, variant = 'primary' } = Astro.props;
+const primaryClasses = "bg-w2w-red text-w2w-dark text-xl font-black py-4 hover:bg-w2w-coral transition-colors duration-200 uppercase tracking-wide";
+const secondaryClasses = "bg-transparent border-2 border-w2w-muted text-w2w-muted text-xl font-black py-4 hover:border-w2w-red hover:text-w2w-red transition-colors duration-200 uppercase tracking-wide";
+const classes = variant === 'primary' ? primaryClasses : secondaryClasses;
+---
+
+<button 
+  type={isSubmit ? "submit" : "button"} 
+  onclick={onClick} 
+  class:list={["w-full", classes]}
+>
+  {label}
+</button>

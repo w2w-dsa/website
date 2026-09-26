@@ -1,193 +1,287 @@
 ---
 // src/pages/interest-form.astro
-import "../styles/global.css";
-import Head from "../components/Head.astro";
-import Footer from "../components/Footer.astro";
-import Button from "../components/Button.astro";
-import FormField from "../components/FormField.astro";
-import CheckboxGroup from "../components/CheckboxGroup.astro";
-import CheckboxField from "../components/CheckboxField.astro";
+import '../styles/global.css';
+import Head from '../components/Head.astro';
+import Footer from '../components/Footer.astro';
+import FormStep from '../components/FormStep.astro';
+import StepButton from '../components/StepButton.astro';
+import TextField from '../components/TextField.astro';
+import TextAreaField from '../components/TextAreaField.astro';
+import RadioGroup from '../components/RadioGroup.astro';
+import CheckboxGroup from '../components/CheckboxGroup.astro';
 
-const membershipLength = [
-  "Joining now to support W2W",
-  "Less than 3 months",
-  "Less than 1 year",
-  "1–3 years",
-  "More than 3 years"
-];
-
-const branches = [
-  "Queens",
-  "Bronx/Upper Manhattan (B/UM)",
-  "Flatbush",
-  "Lower Manhattan (Lowman)",
-  "North Brooklyn (NBK)",
-  "Central Brooklyn (CBK)",
-  "South Brooklyn (SBK)",
-  "Trying to form a new branch",
-  "I don\"t know"
-];
-
-const friendSupportOptions = [
-  "I only want to be contacted by my friend",
-  "I won’t be involved in DSA but anyone can contact me and I’ll vote as suggested to support my friend’s political work",
-];
-
+const membershipOptions = ['Joining now!', 'Less than 1 year', '1–3 years', 'More than 3 years', 'Not a member'];
+const branchOptions = ['Queens', 'Bronx/Upper Manhattan (B/UM)', 'Flatbush', 'Lower Manhattan (Lowman)', 'North Brooklyn (NBK)', 'Central Brooklyn (CBK)', 'South Brooklyn (SBK)', 'Trying to form a new branch', 'I don\'t know'];
 const optInOptions = [
-  { value: "signal", label: "W2W Supporter Announcements on Signal — updates, event invites, and voting reminders" },
-  { value: "email", label: "W2W Supporter Email list — occasional updates, Member Bulletin Supporter Edition (informal reflections and summations about our organizing and our politics, written by W2W members)" },
-  { value: "text", label: "W2W Supporter text bank list — voting reminders" },
-  { value: "none", label: "None" }
+  { name: 'opt_text', label: 'Voting reminder via text - please opt in!' },
+  { name: 'opt_signal', label: 'W2W chat on Signal - announcements only' },
+  { name: 'opt_email', label: 'W2W email list' },
+  { name: 'opt_none', label: 'None' }
 ];
 ---
+
 <!doctype html>
 <html lang="en">
-  <Head 
-    title="World to Win | Interest Form" 
-    description="Sign up to join the World to Win coalition for NYC-DSA." 
-  />
+  <Head title="World to Win | Interest Form" description="Sign up to join the World to Win coalition for NYC-DSA." />
   <body class="bg-w2w-dark text-w2w-muted antialiased font-sans min-h-screen flex flex-col">
     
-    <main class="flex-grow px-6 md:px-16 py-20 w-full">
-      <div class="max-w-2xl mx-auto space-y-12">
+    <main class="flex-grow px-6 md:px-16 py-12 w-full">
+      <div class="max-w-3xl mx-auto">
         
-        <div class="space-y-4">
-          <h1 class="text-4xl md:text-5xl font-black text-w2w-muted">
-            Join Us
-          </h1>
-          <div class="w-24 h-1.5 bg-gradient-to-r from-w2w-red to-w2w-coral"></div>
-          <p class="text-xl text-w2w-muted font-regular">
-          <strong>World to Win (W2W)</strong> is a coalition of NYC-DSA members fighting to connect our long-term vision for democratic socialism to the day-to-day struggle for freedom and dignity at our workplaces, apartment buildings, the ballot box, and the streets.
-            World to Win is a coalition of NYC-DSA members building a chapter ready to connect our long-term vision for democratic socialism to the day-to-day struggle for freedom and dignity. 
-          </p>
-          <p class="text-xl text-w2w-muted font-regular leading-relaxed">
-              Our members have led priority campaigns like <a href="https://wecanbreakthechain.com/" target="_blank" rel="noopener noreferrer" class="text-w2w-muted border-b border-w2w-muted/40 hover:text-w2w-red hover:border-w2w-red transition-colors">
-                Break the Chain </a> and Rapid Response to ICE, and have served as leaders on electoral campaigns from <a href="https://www.darializaforcongress.com/" target="_blank" rel="noopener noreferrer" class="text-w2w-muted border-b border-w2w-muted/40 hover:text-w2w-red hover:border-w2w-red transition-colors"> Darializa Avila Chevalier in Harlem </a> to <a href="https://eonforassembly.com/" target="_blank" rel="noopener noreferrer" class="text-w2w-muted border-b border-w2w-muted/40 hover:text-w2w-red hover:border-w2w-red transition-colors"> Eon Huntley in Bed-Stuy </a> and <a href="https://cct4nyc.com/" target="_blank" rel="noopener noreferrer" class="text-w2w-muted border-b border-w2w-muted/40 hover:text-w2w-red hover:border-w2w-red transition-colors"> Christian Celeste-Tate in East New York </a>. We have led powerful rank-and-file campaigns in our unions for better contracts, to endorse DSA candidates, and for a Free Palestine, and we have helped build tenant unions across the city, including citywide tenant assemblies. W2W members actively organize as member-leaders across every Branch and Working Group in NYC-DSA.
-            </p>
-          <p class="text-xl text-w2w-muted font-regular">
-          If you’re interested in supporting or joining our struggle, <strong>please fill out the interest form below</strong>. 
-          </p>
+        <div class="mb-8">
+          <div class="inline-block bg-w2w-red text-w2w-dark font-black px-4 py-2 text-sm">
+            Section <span id="current-step-display">1</span> of 8
+          </div>
         </div>
 
-        <form 
-          name="interest" 
-          method="POST" 
-          action="/success"
-          data-netlify="true" 
-          class="space-y-8"
-        >
+        <div class="bg-w2w-dark border-2 border-w2w-muted/20 p-8 space-y-6 mb-8">
+          <h1 class="text-2xl md:text-3xl font-black">World to Win Interest Form</h1>
+          <div class="space-y-4 text-lg leading-relaxed">
+            <p><strong class="font-black">World to Win (W2W)</strong> is a coalition of NYC-DSA members fighting to connect our long-term vision for democratic socialism to the day-to-day struggle for freedom and dignity at our workplaces, apartment buildings, the ballot box, and the streets.</p>
+            <p>Our members have led priority campaigns like Break the Chain and Rapid Response to ICE and have served as leaders on electoral campaigns from Darializa Avila Chevalier in Harlem to Eon Huntley in Bed-Stuy and Christian Celeste-Tate in East New York. We have led powerful rank-and-file campaigns in our unions for better contracts, to endorse DSA candidates, and for a Free Palestine, and we have helped build tenant unions across the city, including citywide tenant assemblies. W2W members actively organize as member-leaders across every Branch and Working Group in NYC-DSA.</p>
+            <p>If you’re interested in supporting or joining our struggle, <strong class="font-black">please fill out the interest form below</strong>.</p>
+          </div>
+        </div>
+
+        <form name="interest" method="POST" data-netlify="true" action="/success" class="space-y-8">
           <input type="hidden" name="form-name" value="interest" />
 
-          <CheckboxGroup 
-            name="opt_in"
-            label="I’d like to learn more about World To Win! Opt me into the following lists to receive updates, event invites, and voting recommendations:"
-            required
-            options={optInOptions}
-          />
+          <FormStep step={1}>
+            <RadioGroup name="membership_length" label="How long have you been an NYC-DSA member?" required options={membershipOptions} />
+            <div class="flex gap-4 mt-8">
+              <StepButton onClick="handleStep1()" label="Continue" />
+            </div>
+          </FormStep>
 
-          <FormField 
-            type="select"
-            name="friend_support"
-            label="I’m just joining to support my friend!"
-            required
-            placeholder="Select an option"
-            options={friendSupportOptions}
-          />
-
-          <FormField 
-            type="select"
-            name="membership_length"
-            label="How long have you been an NYC-DSA member?"
-            required
-            placeholder="Select an option"
-            options={membershipLength}
-          />
-
-          <FormField 
-            type="select"
-            name="branch"
-            label="What is your NYC-DSA Branch?"
-            required
-            placeholder="Select your branch"
-            options={branches}
-          />
-
-          <CheckboxField 
-            name="one_on_one"
-            label="I’d like a 1:1 conversation with a W2W Core member to learn more!"
-            required
-          />
-
-          <FormField 
-            type="textarea"
-            name="organizing_work"
-            label="This is the organizing I do inside or outside of DSA:"
-            placeholder="What committees, campaigns, or working groups are you involved in?"
-            rows={4}
-          />
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormField 
-              type="text"
-              name="first_name"
-              label="First Name"
-              required
-              placeholder="First name"
+          <!-- STEP 2 (Placeholder) -->
+          <FormStep step={2} hidden>
+            <h2 class="text-2xl md:text-3xl font-black">Current DSA Members</h2>
+            <TextField name="dsa_groups" label="What groups are you involved in within DSA?" placeholder="e.g. Labor WG, Racial Justice WG, B/UM Branch…" />
+            <RadioGroup 
+              name="w2w_interest" 
+              label="What is your interest in World To Win?" 
+              required 
+              options={[
+                "I’d like to become a World To Win member",
+                "I’d like to vote with W2W",
+                "I’d like to learn more about W2W"
+              ]} 
             />
-            <FormField 
-              type="text"
-              name="last_name"
-              label="Last Name"
-              required
-              placeholder="Last name"
-            />
-          </div>
+            <div class="flex gap-4 mt-8">
+              <StepButton onClick="goBack()" label="Back" variant="secondary" />
+              <StepButton onClick="handleStep2()" label="Continue" />
+            </div>
+          </FormStep>
 
-          <FormField 
-            type="tel"
-            name="phone"
-            label="Phone Number"
-            required
-            placeholder="(555) 123-4567"
-          />
+          <!-- STEP 3 (Placeholder) -->
+  <FormStep step={3} hidden>
+            <h2 class="text-2xl md:text-3xl font-black">Join DSA</h2>
+            <p class="text-lg">To join World to Win, you must first be a member of NYC-DSA. <a href="https://www.dsausa.org/join/" target="_blank" rel="noopener noreferrer" class="text-w2w-red hover:text-w2w-coral underline font-black">Click here to join DSA</a>.</p>
+            
+            <div class="pt-4 space-y-6">
+              <RadioGroup 
+                name="reason_to_join" 
+                label="Which reason to join DSA describes you best?" 
+                required 
+                options={[
+                  "I want to support World To Win with my vote",
+                  "I’d like to learn how to get involved in organizing with W2W",
+                  "I want to support my friend"
+                ]} 
+              />
+              <TextField name="referring_member" label="Name of DSA member who helped you join?" required placeholder="Their name" />
+            </div>
 
-          <FormField 
-            type="email"
-            name="email"
-            label="Email"
-            required
-            placeholder="your@email.com"
-          />
+            <div class="flex gap-4 mt-8">
+              <StepButton onClick="goBack()" label="Back" variant="secondary" />
+              <StepButton onClick="handleStep3()" label="Continue" />
+            </div>
+  </FormStep>        
+  <FormStep step={3} hidden>
+            <h2 class="text-2xl md:text-3xl font-black">Join DSA</h2>
+            <p class="text-lg">To join World to Win, you must first be a member of NYC-DSA. <a href="https://www.dsausa.org/join/" target="_blank" rel="noopener noreferrer" class="text-w2w-red hover:text-w2w-coral underline font-black">Click here to join DSA</a>.</p>
+            <div class="flex gap-4 mt-8">
+              <StepButton onClick="goBack()" label="Back" variant="secondary" />
+              <StepButton onClick="navigateToStep(4)" label="Continue" />
+            </div>
+          </FormStep>
 
-          <FormField 
-            type="text"
-            name="pronouns"
-            label="Pronouns"
-            placeholder="e.g., she/her, they/them, he/him"
-          />
+          <!-- STEP 4 (Placeholder) -->
+          <FormStep step={4} hidden>
+            <h2 class="text-2xl md:text-3xl font-black">Organize with W2W</h2>
+            
+            <div class="space-y-6 pt-4">
+              <TextField name="w2w_members_known" label="Do you know members of W2W? If so, who?" required placeholder="Names of members" />
+              <TextAreaField name="why_w2w" label="Why are you interested in W2W?" placeholder="Share your thoughts..." />
+              
+              <RadioGroup 
+                name="delegate_interest" 
+                label="Are you interested in potentially running as a delegate on our slate for NYC DSA Convention on November 14th?" 
+                options={['Yes', 'No']} 
+              />
+              
+              <RadioGroup 
+                name="one_on_one_interest" 
+                label="Would you like W2W organizers to reach out to you for a 1:1 conversation?" 
+                options={['Yes', 'No']} 
+              />
+            </div>
 
-          <FormField 
-            type="text"
-            name="learned_about"
-            label="How did you learn about W2W?"
-            placeholder="e.g., Instagram, a friend, a social…"
-          />
+            <div class="flex gap-4 mt-8">
+              <StepButton onClick="goBack()" label="Back" variant="secondary" />
+              <StepButton onClick="handleStep4()" label="Continue" />
+            </div>
+          </FormStep>
 
-          <FormField 
-            type="text"
-            name="know_members"
-            label="Do you know any current members of W2W? If so, please name them:"
-            placeholder="Optional"
-          />
+          <!-- STEP 5 -->
+          <FormStep step={5} hidden>
+            <TextAreaField name="organizing" label="Tell us a bit about your current or past organizing, either inside or outside DSA" placeholder="Share your organizing experience..." />
+            <div class="flex gap-4 mt-8">
+              <StepButton onClick="goBack()" label="Back" variant="secondary" />
+              <StepButton onClick="navigateToStep(6)" label="Continue" />
+            </div>
+          </FormStep>
 
-          <div class="pt-6">
-            <Button>Submit Interest</Button>
-          </div>
+          <!-- STEP 6 -->
+          <FormStep step={6} hidden>
+            <RadioGroup name="branch" label="What is your NYC-DSA Branch?" required options={branchOptions} />
+            <div class="flex gap-4 mt-8">
+              <StepButton onClick="goBack()" label="Back" variant="secondary" />
+              <StepButton onClick="navigateToStep(7)" label="Continue" />
+            </div>
+          </FormStep>
+
+          <!-- STEP 7 -->
+          <FormStep step={7} hidden>
+            <h2 class="text-2xl md:text-3xl font-black">Opt In</h2>
+            <CheckboxGroup label="I’d like to learn more about World To Win. Add me to get updates, event invites and voting recommendations:" required options={optInOptions} />
+            <div class="pt-4 space-y-6">
+              <TextField name="name" label="Full Name" required placeholder="Your full name" />
+              <TextField name="phone" label="Phone Number" type="tel" required placeholder="(555) 123-4567" />
+              <TextField name="email" label="Email" type="email" required placeholder="your@email.com" />
+            </div>
+            <RadioGroup name="contact_preference" label="Who can contact you with voting information and reminders?" required options={['Only my friend', 'W2W organizers']} />
+            <div class="flex gap-4 mt-8">
+              <StepButton onClick="goBack()" label="Back" variant="secondary" />
+              <StepButton onClick="handleStep7()" label="Continue" />
+            </div>
+          </FormStep>
+
+          <!-- STEP 8 -->
+          <FormStep step={8} hidden>
+            <TextField name="friend_name" label="What is your friend’s name?" required placeholder="Your friend’s name" />
+            <div class="flex gap-4 mt-8">
+              <StepButton onClick="goBack()" label="Back" variant="secondary" />
+              <StepButton onClick="" label="Submit" isSubmit />
+            </div>
+          </FormStep>
 
         </form>
       </div>
     </main>
 
     <Footer />
+
+    <script is:inline>
+      let currentStep = 1;
+      let stepHistory = [1];
+
+      function updateStepDisplay() {
+        document.querySelectorAll('.step').forEach(step => step.classList.add('hidden'));
+        const currentStepEl = document.querySelector(`[data-step="${currentStep}"]`);
+        if (currentStepEl) currentStepEl.classList.remove('hidden');
+        const display = document.getElementById('current-step-display');
+        if (display) display.textContent = currentStep;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      function navigateToStep(step) {
+        currentStep = step;
+        stepHistory.push(step);
+        updateStepDisplay();
+      }
+
+      function goBack() {
+        if (stepHistory.length > 1) {
+          stepHistory.pop();
+          currentStep = stepHistory[stepHistory.length - 1];
+          updateStepDisplay();
+        }
+      }
+
+      function handleStep1() {
+        const selected = document.querySelector('input[name="membership_length"]:checked');
+        if (!selected) { alert('Please select an option.'); return; }
+        
+        const nextStep = (selected.value === 'Joining now!' || selected.value === 'Not a member') ? 3 : 2;
+        navigateToStep(nextStep);
+      }
+
+      function handleStep2() {
+        const selected = document.querySelector('input[name="w2w_interest"]:checked');
+        if (!selected) { alert('Please select your interest.'); return; }
+        
+        if (selected.value === "I’d like to become a World To Win member") {
+          navigateToStep(4);
+        } else {
+          navigateToStep(6);
+        }
+      }
+
+      function handleStep3() {
+        const selected = document.querySelector('input[name="reason_to_join"]:checked');
+        const referrer = document.getElementById('referring_member').value;
+
+        if (!selected) { alert('Please select a reason.'); return; }
+        if (!referrer) { alert('Please enter the name of the DSA member.'); return; }
+        
+        if (selected.value === "I’d like to learn how to get involved in organizing with W2W") {
+          navigateToStep(4);
+        } else {
+          navigateToStep(6);
+        }
+      }
+
+      function handleStep4() {
+        const membersInput = document.getElementById('w2w_members_known');
+        if (!membersInput || !membersInput.value.trim()) { 
+          alert('Please let us know if you know any members.'); 
+          return; 
+        }
+        navigateToStep(5);
+      }
+
+      function handleStep7() {
+        const selected = document.querySelector('input[name="contact_preference"]:checked');
+        if (!selected) { alert('Please select who can contact you.'); return; }
+        
+        if (selected.value === 'Only my friend') {
+          navigateToStep(8);
+        } else {
+          document.querySelector('form[name="interest"]').submit();
+        }
+      }
+
+      updateStepDisplay();
+
+      const noneOpt = document.querySelector('input[name="opt_none"]');
+      const otherOpts = document.querySelectorAll('input[name="opt_text"], input[name="opt_signal"], input[name="opt_email"]');
+
+      if (noneOpt) {
+          noneOpt.addEventListener('change', (e) => {
+            if (e.target.checked) {
+              otherOpts.forEach(opt => opt.checked = false);
+            }
+          });
+        }
+
+      otherOpts.forEach(opt => {
+          opt.addEventListener('change', (e) => {
+            if (e.target.checked && noneOpt) {
+              noneOpt.checked = false;
+            }
+          });
+        });
+    </script>
   </body>
 </html>

@@ -1,0 +1,23 @@
+---
+export interface Props {
+  name: string;
+  label: string;
+  type?: string;
+  required?: boolean;
+  placeholder?: string;
+}
+const { name, label, type = "text", required = false, placeholder } = Astro.props;
+---
+<div class="space-y-2">
+  <label for={name} class="block text-xl font-black">
+    {label} {required && <span class="text-w2w-red">*</span>}
+  </label>
+  <input 
+    type={type} 
+    id={name} 
+    name={name} 
+    required={required}
+    placeholder={placeholder}
+    class="w-full bg-transparent border-2 border-w2w-muted/30 rounded-none py-4 px-6 text-w2w-muted placeholder-w2w-muted/40 focus:outline-none focus:border-w2w-red transition-colors"
+  />
+</div>

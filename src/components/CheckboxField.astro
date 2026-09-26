@@ -15,8 +15,10 @@ const { name, label, required = false, value = "yes" } = Astro.props;
     id={name} 
     name={name} 
     value={value}
-    class="mt-1.5 w-5 h-5 accent-w2w-red border-2 border-w2w-muted/30 rounded-none cursor-pointer" 
+    class="peer sr-only" 
   />
+        <div class="w-6 h-6 border-2 border-w2w-muted mb-[6px] peer-checked:border-w2w-red peer-checked:bg-w2w-red transition-colors flex-shrink-0"></div>
+
   <label for={name} class="text-lg font-regular text-w2w-muted cursor-pointer leading-relaxed">
     {label} {required && <span class="text-w2w-red">*</span>}
   </label>
