@@ -1,0 +1,318 @@
+---
+// src/pages/platform.astro
+import '../styles/global.css';
+import BranchSlate from '../components/BranchSlate.astro';
+import Button from '../components/Button.astro';
+import Footer from "../components/Footer.astro";
+import Head from "../components/Head.astro";
+import Header from "../components/Header.astro";
+import P from "../components/P.astro"
+
+const bum = `
+Alfredo G
+Anna D
+Ashley L
+Bo T
+Charlotte MW
+CJ G
+Craig BM
+Curtis R
+Drew M
+Edd H
+Eric NP
+Erl K
+Ethan E
+Ginevra M
+Greg C
+Imani K
+Isabella G
+Isaiah R
+Jazz H
+Joe T
+Joseph P
+Julio Q
+Kathrina D
+Kevin B
+Leel D
+Lourdes V
+Mario N
+Mary Alice J
+Mitch E
+Moacir .
+Mohamed K
+Nasser A
+Natalie B
+Oriana H
+Rafael MR
+Rex T
+Sam W
+Shanzana R
+Shreya N
+Tatiana S
+Thayer G
+Thomas T
+`
+
+const cbk = `
+Ahmed H
+Alex F
+Anna L
+Blessie R
+Brandon W
+Carlos S
+Cass R
+Cody S
+Courtney T
+Cynthia R
+Dennis C
+Diego P
+Gideon B
+Gray M
+Hannah S 
+Holden T
+Isaac KD
+Jack F
+Jack T
+Jai G
+Kristin D
+Kyle G
+Landry L
+Lau B
+Luis L
+Maren H
+Marina W
+Matt B
+Maura T
+Maya M
+Michael S
+Nate K
+Nikhil S
+Niko N
+Nora P
+Parker M
+Ronit K
+Sam H
+Saoud M
+Sawyer S
+Sean B
+Sessen B
+Siena S
+Sonya S
+Stephanie L
+Sunny O
+Valerie G
+Zach S
+Zack M
+`;
+
+const flatbush=`
+Alex C
+Alyssa W
+Ciara K
+David J
+Farah Rami K
+Gerard D
+Gianna S
+Herman B
+Izzy G
+Jack L
+Kameel M
+Khalil S
+Kelly T
+Linda H
+Marian J
+Michelle O
+Preston D
+Sean H
+Sonar S
+Tiff B
+Will F
+`;
+
+const lowman = `
+Alice D
+Alina S
+Ash B
+Caitlin C*
+Caleb S
+Celines M*
+Ciaran T
+Chloe J*
+Dante D
+Dean P
+Diego F*
+Evan C
+Eve K
+Ian M
+Jackie L*
+Layla L*
+Martina C
+Mina F
+Myles S
+Peter M
+Rob R
+Ryder G
+Savasiah G*
+Sid CW
+Tito D*
+`
+
+const nbk = `
+Aaron H
+Aidan C
+Alan G
+April M
+Ashton S 
+Ben L
+Brandon R
+Briggs W
+Brynn D
+Cam P
+Chance S
+Charlotte A
+Christian L
+Danica P
+Elle K
+George D
+Henry G
+Jen E
+Kat L
+Katie B
+Lisa D
+Mac P
+Maile K
+Marlowe B
+Matthew S
+Nicholas G
+Nina K
+Paul G
+Pedro AR
+Rami S
+Reb H
+Robert E
+Rob K
+Sammy Z
+Selendis J
+Sidney A
+Sophia C
+Stewart S
+Truitt L
+Tyler S
+Wally A
+Yassmin F
+`;
+
+const queens=`
+Aastha U
+Andrew C
+Alexis F
+Ari S
+Caleb D
+Cee A
+Cristina RH
+Damien A
+Dylan M
+Em E
+Emith E
+Eric W
+Eshaan V
+Gant R
+Giovanetta M
+Habiba C
+Ira P
+Jeremy V
+Jonathan B
+Jon M
+Joshua M
+Julian M
+Laurel G
+Lexie C
+Liz T
+Matt M
+Mubashir S
+Nathan Y
+Noah H
+Valentine D
+Tim C
+Trevor S
+Tyler P
+`;
+
+const sbk=`
+Abigail B
+Adam I
+Anthony A
+Alex R
+Arjun B
+Brian M
+Carlo F
+Emily K
+Jailene L 
+James H
+Jeremy K
+Jess L
+Jessica S
+Jovada D
+Kyle G 
+Natalie B
+Omar H
+Ry Z
+Sam K
+Samuel R
+Sophia L
+Victoria A
+Zahra G
+`
+---
+
+<!doctype html>
+<html lang="en">
+    <Head 
+    title="World to Win | 2026 Convention Slate" 
+    description="World to Win slate for NYC-DSA Citywide Convention 2026." 
+  />
+  <body class="bg-w2w-dark text-w2w-muted antialiased font-sans">
+    <main class="space-y-0">
+      
+      <Header>
+        <span slot="title">
+            CONVENTION SLATE
+        </span>
+      </Header>
+
+  <section class="px-6 md:px-16 py-16 relative overflow-hidden bg-tex-2">
+  <div class="absolute inset-0 bg-w2w-dark/80"></div>
+  <div class="max-w-4xl space-y-6 relative z-10">
+          <div class="space-y-4 md:pl-14">
+            <P>
+            Under unprecedented circumstances, we make our own history. W2W 
+            delegates believe in building the chapter that this moment 
+            calls for: a machine of revolution rooted in real-world strategy 
+            and member democracy.
+            </P>
+          </div>
+  </div>
+      </section>
+
+      <BranchSlate name="Bronx/Upper Manhattan" texture="bg-tex-3" rawList={bum}>
+      </BranchSlate>
+
+      <BranchSlate name="Central Brooklyn" texture="bg-tex-1" rawList={cbk}>
+      </BranchSlate>
+      <BranchSlate name="Flatbush" texture="bg-tex-2" rawList={flatbush}>
+      </BranchSlate>
+
+      <BranchSlate name="Lower Manhattan" texture="bg-tex-4" rawList={lowman}>
+      </BranchSlate>
+      <BranchSlate name="North Brooklyn" texture="bg-tex-5" rawList={nbk}>
+      </BranchSlate>
+      <BranchSlate name="Queens" texture="bg-tex-2" rawList={queens}>
+      </BranchSlate>
+      <BranchSlate name="South Brooklyn / SI" texture="bg-tex-1" rawList={sbk}>
+      </BranchSlate>
+      <Footer />
+
+    </main>
+  </body>
+</html>
+
