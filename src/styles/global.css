@@ -58,6 +58,19 @@
 }
 
 @layer components {
+  /* Darkens a section's texture, fading to solid at the top and bottom so
+     stacked sections with different textures meet without a visible seam. */
+  .tex-overlay {
+    --tex-dim: color-mix(in srgb, var(--color-w2w-dark) 80%, transparent);
+    background: linear-gradient(
+      to bottom,
+      var(--color-w2w-dark),
+      var(--tex-dim) 4rem,
+      var(--tex-dim) calc(100% - 4rem),
+      var(--color-w2w-dark)
+    );
+  }
+
   .pou-desc p {
     @apply text-lg md:text-xl leading-relaxed font-regular text-w2w-muted;
   }
