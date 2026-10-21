@@ -1,10 +1,11 @@
 ---
 export interface Props {
+  id: string;
   name: string;
   texture: string;
   rawList: string;
 }
-const { name, rawList, texture } = Astro.props;
+const { id, name, rawList, texture } = Astro.props;
 
 const rawCandidates = rawList.split('\n').map(n => n.trim()).filter(n => n !== '');
 
@@ -24,10 +25,18 @@ const candidates = rawCandidates.map(name => {
 
   <div class="max-w-4xl space-y-6 relative z-10">
     
-      <div class="mb-8">
-    <h3 class="text-3xl md:text-4xl font-black text-w2w-muted uppercase tracking-tight">
-      {name}
-    </h3>
+      <div class="mb-8 group">
+        <div class="flex items-center gap-4">
+          <h3 id={id} class="text-3xl md:text-4xl font-black text-w2w-muted uppercase tracking-tight scroll-mt-24">
+            {name}
+          </h3>
+          <button id={`copy-btn-${id}`} onclick={`copyLink('${id}')`}
+            class="opacity-0 group-hover:opacity-100 transition-opacity text-w2w-muted hover:text-w2w-red text-2xl font-black leading-none cursor-pointer"
+            aria-label="Copy link to this slate"
+          >
+           #
+          </button>
+        </div>
     <div class="w-24 h-1.5 bg-gradient-to-r from-w2w-red to-w2w-coral mt-3"></div>
   </div>
 
@@ -55,5 +64,21 @@ const candidates = rawCandidates.map(name => {
 
   </div>
 </section>
+
+<script is:inline>
+  function copyLink(id) {
+    const url = `${window.location.origin}${window.location.pathname}#${id}`;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById(`copy-btn-${id}`);
+      if (btn) {
+        const originalText = btn.innerText;
+        btn.innerText = 'Copied!';
+        setTimeout(() => {
+          btn.innerText = originalText;
+        }, 1500);
+      }
+    });
+  }
+</script>
 
 
