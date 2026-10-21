@@ -1,0 +1,36 @@
+---
+// src/components/BackToTop.astro
+---
+
+<button id="back-to-top"
+  class="fixed bottom-6 right-6 z-50 w-12 h-12 flex items-center justify-center border-2 border-w2w-muted/30 bg-w2w-dark/90 text-w2w-muted hover:border-w2w-red hover:text-w2w-red transition-[opacity,visibility,translate,color,border-color] duration-200 cursor-pointer opacity-0 invisible translate-y-2"
+  aria-label="Back to top"
+>
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7" />
+  </svg>
+</button>
+
+<script>
+  const btn = document.getElementById('back-to-top')!;
+  const footer = document.querySelector('footer');
+  const hiddenClasses = ['opacity-0', 'invisible', 'translate-y-2'];
+
+  // Show once the reader is about a screen down the page, and ride above the
+  // footer so the button doesn't cover its logo link.
+  const update = () => {
+    const show = window.scrollY > window.innerHeight;
+    hiddenClasses.forEach((c) => btn.classList.toggle(c, !show));
+
+    const footerOverlap = footer ? Math.max(0, window.innerHeight - footer.getBoundingClientRect().top) : 0;
+    btn.style.bottom = `${24 + footerOverlap}px`;
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+
+  btn.addEventListener('click', () => {
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+</script>
