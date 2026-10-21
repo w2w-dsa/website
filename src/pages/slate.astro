@@ -2,11 +2,11 @@
 // src/pages/platform.astro
 import '../styles/global.css';
 import BranchSlate from '../components/BranchSlate.astro';
-import Button from '../components/Button.astro';
 import Footer from "../components/Footer.astro";
 import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
 import P from "../components/P.astro"
+import SlateNav from "../components/SlateNav.astro"
 
 const bum = `
 Alfredo G
@@ -264,6 +264,16 @@ Sophia L
 Victoria A
 Zahra G
 `
+
+const branches = [
+  { name: 'Bronx/Upper Manhattan', id: 'bum' },
+  { name: 'Central Brooklyn', id: 'cbk' },
+  { name: 'Flatbush', id: 'flatbush' },
+  { name: 'Lower Manhattan', id: 'lowman' },
+  { name: 'North Brooklyn', id: 'nbk' },
+  { name: 'Queens', id: 'queens' },
+  { name: 'South Brooklyn', id: 'sbk' },
+];
 ---
 
 <!doctype html>
@@ -281,36 +291,55 @@ Zahra G
         </span>
       </Header>
 
-  <section class="px-6 md:px-16 py-16 relative overflow-hidden bg-tex-2">
-  <div class="absolute inset-0 bg-w2w-dark/80"></div>
-  <div class="max-w-4xl space-y-6 relative z-10">
-          <div class="space-y-4 md:pl-14">
-            <P>
-            Under unprecedented circumstances, we make our own history. W2W 
-            delegates believe in building the chapter that this moment 
-            calls for: a machine of revolution rooted in real-world strategy 
-            and member democracy.
-            </P>
-          </div>
-  </div>
+      <div class="max-w-7xl mx-auto">
+        <SlateNav branches={branches} />
+      </div>
+
+      <section class="px-6 md:px-16 py-16 relative overflow-hidden bg-tex-2">
+        <div class="absolute inset-0 bg-w2w-dark/80"></div>
+        <div class="max-w-4xl space-y-6 relative z-10">
+                <div class="space-y-4 md:pl-14">
+                  <P>
+                  Under unprecedented circumstances, we make our own history. W2W 
+                  delegates believe in building the chapter that this moment 
+                  calls for: a machine of revolution rooted in real-world strategy 
+                  and member democracy.
+                  </P>
+                </div>
+        </div>
       </section>
 
-      <BranchSlate name="Bronx/Upper Manhattan" texture="bg-tex-3" rawList={bum}>
-      </BranchSlate>
 
-      <BranchSlate name="Central Brooklyn" texture="bg-tex-1" rawList={cbk}>
-      </BranchSlate>
-      <BranchSlate name="Flatbush" texture="bg-tex-2" rawList={flatbush}>
-      </BranchSlate>
+       <div id="bum">
+        <BranchSlate name="Bronx/Upper Manhattan" texture="bg-tex-3" rawList={bum}>
+        </BranchSlate>
+      </div>
 
-      <BranchSlate name="Lower Manhattan" texture="bg-tex-4" rawList={lowman}>
-      </BranchSlate>
-      <BranchSlate name="North Brooklyn" texture="bg-tex-5" rawList={nbk}>
-      </BranchSlate>
-      <BranchSlate name="Queens" texture="bg-tex-2" rawList={queens}>
-      </BranchSlate>
-      <BranchSlate name="South Brooklyn / SI" texture="bg-tex-1" rawList={sbk}>
-      </BranchSlate>
+       <div id="cbk">
+        <BranchSlate name="Central Brooklyn" texture="bg-tex-1" rawList={cbk}>
+        </BranchSlate>
+      </div>
+       <div id="flatbush">
+        <BranchSlate name="Flatbush" texture="bg-tex-2" rawList={flatbush}>
+        </BranchSlate>
+      </div>
+
+       <div id="lowman">
+        <BranchSlate name="Lower Manhattan" texture="bg-tex-4" rawList={lowman}>
+        </BranchSlate>
+      </div>
+       <div id="nbk">
+        <BranchSlate name="North Brooklyn" texture="bg-tex-5" rawList={nbk}>
+        </BranchSlate>
+      </div>
+       <div id="queens">
+        <BranchSlate name="Queens" texture="bg-tex-2" rawList={queens}>
+        </BranchSlate>
+      </div>
+       <div id="sbk">
+        <BranchSlate name="South Brooklyn / SI" texture="bg-tex-1" rawList={sbk}>
+        </BranchSlate>
+      </div>
       <Footer />
 
     </main>
