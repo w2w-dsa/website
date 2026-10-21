@@ -28,12 +28,12 @@
   --font-weight-black: 900;
   --font-weight-regular: 400;
 
-  --background-image-tex-1: url("/textures/W2W_Background-1.png");
-  --background-image-tex-2: url("/textures/W2W_Background-2.png");
-  --background-image-tex-3: url("/textures/W2W_Background-3.png");
-  --background-image-tex-4: url("/textures/W2W_Background-4.png");
-  --background-image-tex-5: url("/textures/W2W_Background-5.png");
-  --background-image-tex-6: url("/textures/W2W_Background-6.png");
+  --background-image-tex-1: url("/textures/W2W_Background-1.webp");
+  --background-image-tex-2: url("/textures/W2W_Background-2.webp");
+  --background-image-tex-3: url("/textures/W2W_Background-3.webp");
+  --background-image-tex-4: url("/textures/W2W_Background-4.webp");
+  --background-image-tex-5: url("/textures/W2W_Background-5.webp");
+  --background-image-tex-6: url("/textures/W2W_Background-6.webp");
 }
 
 @layer base {
