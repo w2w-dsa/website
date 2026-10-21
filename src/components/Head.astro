@@ -10,6 +10,10 @@ const {
   description = "A coalition of NYC-DSA members fighting for: Nationwide movement for socialism 🌹 Internationalism & abolition ✊ Member-run NYC-DSA 👥", 
   ogImage = "/pngs/social-graph.png"
 } = Astro.props;
+
+// Link-preview crawlers need absolute URLs.
+const imageUrl = new URL(ogImage, Astro.site).href;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <head>
@@ -24,12 +28,13 @@ const {
   <link rel="icon" type="image/svg+xml" href="/svgs/sphere1.svg" />
 
   <meta property="og:type" content="website" />
+  <meta property="og:url" content={pageUrl} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={ogImage} />
+  <meta property="og:image" content={imageUrl} />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={ogImage} />
+  <meta name="twitter:image" content={imageUrl} />
 </head>
