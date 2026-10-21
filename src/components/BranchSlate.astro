@@ -23,6 +23,11 @@ const candidates = rawCandidates.map(name => {
 const nameWords = name.split(' ');
 const lastWord = nameWords.pop();
 const leadingWords = nameWords.join(' ');
+
+// Names fill top-to-bottom, column by column. A grid (rather than CSS columns)
+// keeps rows aligned in Safari, which pushes later columns down by a margin.
+const rowsFor = (cols: number) => `repeat(${Math.ceil(candidates.length / cols)}, auto)`;
+const gridRows = `--rows-2: ${rowsFor(2)}; --rows-3: ${rowsFor(3)}; --rows-4: ${rowsFor(4)}`;
 ---
 
 <section class:list={["px-6 md:px-16 py-16 bg-w2w-dark bg-cover bg-center relative overflow-hidden", texture]}>
@@ -40,9 +45,9 @@ const leadingWords = nameWords.join(' ');
     <div class="w-24 h-1.5 bg-gradient-to-r from-w2w-red to-w2w-coral mt-3"></div>
   </div>
 
-  <ul class="columns-2 sm:columns-3 xl:columns-4 gap-x-8 gap-y-3 list-none p-0 m-0">
+  <ul style={gridRows} class="grid grid-flow-col grid-cols-2 grid-rows-(--rows-2) sm:grid-cols-3 sm:grid-rows-(--rows-3) xl:grid-cols-4 xl:grid-rows-(--rows-4) gap-x-8 gap-y-4 list-none p-0 m-0">
     {candidates.map((candidate) => (
-      <li class="break-inside-avoid mb-4 text-xl font-bold text-w2w-muted flex items-center gap-2">
+      <li class="text-xl font-bold text-w2w-muted flex items-center gap-2">
         <span>{candidate.name}</span>
         {candidate.isDelegate && (
           <svg class="w-4 h-4 text-w2w-red flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-label="FEC Delegate">
