@@ -8,8 +8,10 @@ export interface Props {
 const { 
   title, 
   description = "A coalition of NYC-DSA members fighting for: Nationwide movement for socialism 🌹 Internationalism & abolition ✊ Member-run NYC-DSA 👥", 
-  ogImage = "/pngs/social-graph.png"
+  ogImage = "/share.jpg"
 } = Astro.props;
+
+const ogImageAlt = "World to Win logo: the words World to Win on a red circle";
 
 // Link-preview crawlers need absolute URLs.
 const imageUrl = new URL(ogImage, Astro.site).href;
@@ -32,9 +34,13 @@ const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={imageUrl} />
+  <meta property="og:image:width" content="2400" />
+  <meta property="og:image:height" content="1260" />
+  <meta property="og:image:alt" content={ogImageAlt} />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={imageUrl} />
+  <meta name="twitter:image:alt" content={ogImageAlt} />
 </head>
