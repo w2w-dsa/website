@@ -8,9 +8,10 @@ export interface Props {
   href?: string;
   originalurl?: string;
   originaltitle?: string;
+  video?: string;
 }
 
-const { originalurl, originaltitle, title, texture, href } = Astro.props;
+const { originalurl, originaltitle, title, texture, href, video } = Astro.props;
 
 let buttonTitle = "Read Full Resolution";
 
@@ -23,7 +24,8 @@ if (originalurl) {
 <section class:list={["px-6 md:px-16 py-16 bg-w2w-dark bg-cover bg-center relative overflow-hidden", texture]}>
   <div class="absolute inset-0 tex-overlay"></div>
 
-  <div class="max-w-4xl space-y-6 relative z-10">
+  <div class="relative z-10 lg:flex lg:items-start lg:gap-12">
+  <div class="max-w-4xl space-y-6">
     
     <div class="flex items-start gap-4 pl-6 md:pl-14">
       <img src="/svgs/sphere1.svg" alt="" class="w-8 h-8 md:w-10 md:h-10 flex-shrink-0 mt-1" />
@@ -49,6 +51,22 @@ if (originalurl) {
         <Button href={href}>{buttonTitle}</Button>
       </div>
     )}
+
+  </div>
+
+  {video && (
+    <div class="mt-10 lg:mt-0 pl-6 md:pl-14 lg:pl-0">
+      <video
+        src={`/videos/${video}.mp4`}
+        poster={`/videos/${video}.jpg`}
+        controls
+        playsinline
+        preload="none"
+        aria-label={`Video: ${title}`}
+        class="w-full max-w-72 aspect-[9/16] bg-black border-2 border-w2w-muted"
+      ></video>
+    </div>
+  )}
 
   </div>
 </section>
