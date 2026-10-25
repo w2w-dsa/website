@@ -1,8 +1,10 @@
 ---
 import A from './A.astro';
 import Button from './Button.astro';
+import ShareButton from './ShareButton.astro';
 
 export interface Props {
+  id?: string;
   title: string;
   texture: string;
   href?: string;
@@ -12,6 +14,14 @@ export interface Props {
 }
 
 const { originalurl, originaltitle, title, texture, href, video } = Astro.props;
+
+// Anchor defaults to the short-link slug, minus "-reso" (amendments keep their suffix so they don't collide with the resolutions they amend).
+const id = Astro.props.id ?? href?.split('/').pop()?.replace(/-reso$/, '');
+
+// The share button rides along with the last word so it never wraps onto a line by itself.
+const titleWords = title.split(' ');
+const lastWord = titleWords.pop();
+const leadingWords = titleWords.join(' ');
 
 let buttonTitle = "Read Full Resolution";
 
@@ -27,10 +37,12 @@ if (originalurl) {
   <div class="relative z-10 lg:flex lg:items-start lg:gap-12">
   <div class="max-w-4xl space-y-6">
     
-    <div class="flex items-start gap-4 pl-6 md:pl-14">
+    <div class="flex items-start gap-4 pl-6 md:pl-14 group">
       <img src="/svgs/sphere1.svg" alt="" class="w-8 h-8 md:w-10 md:h-10 flex-shrink-0 mt-1" />
-      <h3 class="text-2xl md:text-3xl font-black leading-tight text-w2w-muted w-full">
-        {title}
+      <h3 id={id} class="text-2xl md:text-3xl font-black leading-tight text-w2w-muted w-full scroll-mt-24">
+        {id ? (
+          <>{leadingWords} <span class="whitespace-nowrap">{lastWord}<ShareButton id={id} title={title} label={`Share link to ${title}`} /></span></>
+        ) : title}
       </h3>
     </div>
 

@@ -1,4 +1,6 @@
 ---
+import ShareButton from './ShareButton.astro';
+
 export interface Props {
   id: string;
   name: string;
@@ -37,10 +39,7 @@ const gridRows = `--rows-2: ${rowsFor(2)}; --rows-3: ${rowsFor(3)}; --rows-4: ${
     
       <div class="mb-8 group">
         <h3 id={id} class="text-3xl md:text-4xl font-black text-w2w-muted uppercase tracking-tight scroll-mt-24">
-          {leadingWords} <span class="whitespace-nowrap">{lastWord}<button data-share-id={id} data-share-name={name}
-            class="ml-4 pointer-fine:opacity-0 pointer-fine:group-hover:opacity-100 focus-visible:opacity-100 transition-opacity text-w2w-muted hover:text-w2w-red text-2xl font-black leading-none cursor-pointer"
-            aria-label={`Share link to the ${name} slate`}
-          >#</button></span>
+          {leadingWords} <span class="whitespace-nowrap">{lastWord}<ShareButton id={id} title={`${name} Slate`} label={`Share link to the ${name} slate`} /></span>
         </h3>
     <div class="w-24 h-1.5 bg-gradient-to-r from-w2w-red to-w2w-coral mt-3"></div>
   </div>
@@ -69,30 +68,4 @@ const gridRows = `--rows-2: ${rowsFor(2)}; --rows-3: ${rowsFor(3)}; --rows-4: ${
 
   </div>
 </section>
-
-<script>
-  // Phones get the native share sheet; everything else copies the link.
-  const timers = new WeakMap<HTMLElement, number>();
-
-  document.querySelectorAll<HTMLButtonElement>('[data-share-id]').forEach((btn) => {
-    btn.addEventListener('click', async () => {
-      const url = `${location.origin}${location.pathname}#${btn.dataset.shareId}`;
-
-      if (navigator.share && matchMedia('(pointer: coarse)').matches) {
-        try {
-          await navigator.share({ title: `World to Win | ${btn.dataset.shareName} Slate`, url });
-        } catch {
-          // User closed the share sheet.
-        }
-        return;
-      }
-
-      await navigator.clipboard.writeText(url);
-      btn.textContent = 'Copied!';
-      clearTimeout(timers.get(btn));
-      timers.set(btn, window.setTimeout(() => (btn.textContent = '#'), 1500));
-    });
-  });
-</script>
-
 

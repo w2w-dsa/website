@@ -1,0 +1,39 @@
+---
+// src/components/ShareButton.astro
+export interface Props {
+  id: string;
+  title: string;
+  label: string;
+}
+const { id, title, label } = Astro.props;
+---
+
+<button data-share-id={id} data-share-title={title}
+  class="ml-4 pointer-fine:opacity-0 pointer-fine:group-hover:opacity-100 focus-visible:opacity-100 transition-opacity text-w2w-muted hover:text-w2w-red text-2xl font-black leading-none cursor-pointer"
+  aria-label={label}
+>#</button>
+
+<script>
+  // Phones get the native share sheet; everything else copies the link.
+  const timers = new WeakMap<HTMLElement, number>();
+
+  document.querySelectorAll<HTMLButtonElement>('[data-share-id]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const url = `${location.origin}${location.pathname}#${btn.dataset.shareId}`;
+
+      if (navigator.share && matchMedia('(pointer: coarse)').matches) {
+        try {
+          await navigator.share({ title: `World to Win | ${btn.dataset.shareTitle}`, url });
+        } catch {
+          // User closed the share sheet.
+        }
+        return;
+      }
+
+      await navigator.clipboard.writeText(url);
+      btn.textContent = 'Copied!';
+      clearTimeout(timers.get(btn));
+      timers.set(btn, window.setTimeout(() => (btn.textContent = '#'), 1500));
+    });
+  });
+</script>
