@@ -1,0 +1,260 @@
+---
+// src/pages/delegates.astro
+import '../styles/global.css';
+import BranchDelegates from '../components/BranchDelegates.astro';
+import BackToTop from "../components/BackToTop.astro";
+import Footer from "../components/Footer.astro";
+import Head from "../components/Head.astro";
+import Header from "../components/Header.astro";
+import SlateNav from "../components/SlateNav.astro"
+
+const bum = `
+Alfredo G
+Anna D
+Ashley L
+Bo T
+Craig BM
+Curtis R
+Edd H
+Eric NP
+Erl K
+Ethan E
+Greg C
+Isabella G
+Jazz H
+Leel D
+Mario N
+Mitch E
+Moacir .
+Mohamed K
+Rafael MR
+Rex T
+Sam W
+Shanzana R
+Shreya N
+`;
+
+const bumAlternates = [
+  { rank: 1, name: 'Ginevra M' },
+  { rank: 4, name: 'Thomas T' },
+  { rank: 5, name: 'Julio Q' },
+];
+
+const cbk = `
+Ahmed H
+Anna L
+Blessie R
+Brandon W
+Hannah S
+Holden T
+Isaac KD
+Jack T
+Jai G
+Kristin D
+Kyle G
+Lau B
+Maren H
+Marina W
+Maya M
+Michael S
+Nate K
+Nikhil S
+Ronit K
+Sam H
+Sessen B
+Stephanie L
+Sunny O
+Zack M
+`;
+
+const cbkAlternates = [
+  { rank: 2, name: 'Landry L' },
+  { rank: 6, name: 'Niko N' },
+  { rank: 7, name: 'Gray M' },
+  { rank: 8, name: 'Carlos S' },
+];
+
+const flatbush = `
+Alyssa W
+David J
+Farah Rami K
+Gianna S
+Isabella D
+Kameel M
+Khalil S
+Kelly T
+Linda H
+Michelle O
+Preston D
+`;
+
+const flatbushAlternates = [
+  { rank: 1, name: 'Marian J' },
+];
+
+const lowman = `
+Alice D
+Alina S
+Caitlin C*
+Celines M*
+Chloe J*
+Dean P
+Diego F*
+Evan C
+Eve K
+Jackie L*
+Layla L*
+Martina C
+Mina F
+Rob R
+Ryder G
+Savasiah G*
+Sid CW
+Tito D*
+`;
+
+const lowmanAlternates = [
+  { rank: 1, name: 'Ciaran T' },
+  { rank: 4, name: 'Myles S' },
+];
+
+const nbk = `
+Aaron H
+Aidan C
+Alan G
+April M
+Arman K
+Ashton S
+Brynn D
+Charlotte A
+Christian L
+Danica P
+Henry G
+Jen E
+Katie B
+Mac P
+Maile K
+Nina K
+Paul G
+Pedro AR
+Rami S
+Robert E
+Rob K
+Sammy Z
+Tyler S
+Wally A
+`;
+
+const nbkAlternates = [
+  { rank: 1, name: 'Selendis J' },
+  { rank: 2, name: 'Nicholas G' },
+  { rank: 3, name: 'Sophia C' },
+  { rank: 4, name: 'Stewart S' },
+  { rank: 6, name: 'Eleanor K' },
+];
+
+const queens = `
+Aastha U
+Alexis F
+Ari S
+Caleb D
+Damien A
+Eric W
+Gant R
+Giovanetta M
+Habiba C
+Ira P
+Jeremy V
+Jonathan B
+Jon M
+Lexie C
+Matt M
+Mubashir S
+Roona R
+Valentine D
+Trevor S
+`;
+
+const queensAlternates = [
+  { rank: 1, name: 'Julian M' },
+  { rank: 2, name: 'Cristina RH' },
+];
+
+const sbk = `
+Abigail B
+Adam I
+Arjun B
+Emily K
+Jailene L
+James H
+Jess L
+Jessica S
+Omar H
+Ry Z
+Sophia L
+Zahra G
+`;
+
+const sbkAlternates = [
+  { rank: 4, name: 'Sam K' },
+  { rank: 5, name: 'Carlo F' },
+];
+
+const branches = [
+  { name: 'Bronx/Upper Manhattan', id: 'bum' },
+  { name: 'Central Brooklyn', id: 'cbk' },
+  { name: 'Flatbush', id: 'flatbush' },
+  { name: 'Lower Manhattan', id: 'lowman' },
+  { name: 'North Brooklyn', id: 'nbk' },
+  { name: 'Queens', id: 'queens' },
+  { name: 'South Brooklyn', id: 'sbk' },
+];
+---
+
+<!doctype html>
+<html lang="en" class="motion-safe:scroll-smooth">
+    <Head
+    title="World to Win | 2026 Convention Delegates"
+    description="World to Win delegates and alternates elected to the NYC-DSA Citywide Convention 2026."
+  />
+  <body class="bg-w2w-dark text-w2w-muted antialiased font-sans">
+    <main class="space-y-0">
+
+      <Header>
+        <span slot="title">
+            OUR DELEGATES
+        </span>
+      </Header>
+
+      <div class="px-6 md:px-16 max-w-7xl mx-auto">
+        <SlateNav branches={branches} />
+      </div>
+
+      <BranchDelegates id="bum" name="Bronx/Upper Manhattan" texture="bg-tex-3" rawList={bum} alternates={bumAlternates}>
+      </BranchDelegates>
+
+      <BranchDelegates id="cbk" name="Central Brooklyn" texture="bg-tex-1" rawList={cbk} alternates={cbkAlternates}>
+      </BranchDelegates>
+
+      <BranchDelegates id="flatbush" name="Flatbush" texture="bg-tex-2" rawList={flatbush} alternates={flatbushAlternates}>
+      </BranchDelegates>
+
+      <BranchDelegates id="lowman" name="Lower Manhattan" texture="bg-tex-4" rawList={lowman} alternates={lowmanAlternates}>
+      </BranchDelegates>
+
+      <BranchDelegates id="nbk" name="North Brooklyn" texture="bg-tex-5" rawList={nbk} alternates={nbkAlternates}>
+      </BranchDelegates>
+
+      <BranchDelegates id="queens" name="Queens" texture="bg-tex-2" rawList={queens} alternates={queensAlternates}>
+      </BranchDelegates>
+
+      <BranchDelegates id="sbk" name="South Brooklyn / SI" texture="bg-tex-1" rawList={sbk} alternates={sbkAlternates}>
+      </BranchDelegates>
+
+      <BackToTop />
+
+      <Footer />
+
+    </main>
+  </body>
+</html>
