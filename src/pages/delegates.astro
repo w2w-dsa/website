@@ -6,6 +6,8 @@ import BackToTop from "../components/BackToTop.astro";
 import Footer from "../components/Footer.astro";
 import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
+import P from "../components/P.astro"
+import A from "../components/A.astro"
 import SlateNav from "../components/SlateNav.astro"
 
 const bum = `
@@ -229,6 +231,27 @@ const branches = [
       <div class="px-6 md:px-16 max-w-7xl mx-auto">
         <SlateNav branches={branches} />
       </div>
+
+      <section class="px-6 md:px-16 py-4 relative overflow-hidden bg-tex-2">
+        <div class="absolute inset-0 tex-overlay"></div>
+        <div class="max-w-4xl space-y-6 relative z-10">
+                <div class="space-y-4 md:pl-14">
+                  <P>
+                  At 30% of convention delegates, World to Win has secured the
+                  largest left delegation to NYC-DSA convention in the chapter’s
+                  history.
+                  </P>
+                  <P>
+                  Thank you to everyone who voted for us—we will continue the
+                  fight for a stronger NYC-DSA, led by and for members!
+                  </P>
+                  <P>
+                  If you would like to join our organizing, please fill out
+                  our <A href="https://go.w2w.nyc/Ln2Xmc">interest form</A>.
+                  </P>
+                </div>
+        </div>
+      </section>
 
       <BranchDelegates id="bum" name="Bronx/Upper Manhattan" texture="bg-tex-3" rawList={bum} alternates={bumAlternates}>
       </BranchDelegates>
