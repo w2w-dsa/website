@@ -138,7 +138,6 @@ Mac P
 Maile K
 Nina K
 Paul G
-Pedro AR
 Rami S
 Robert E
 Rob K
@@ -202,6 +201,10 @@ const sbkAlternates = [
   { rank: 5, name: 'Carlo F' },
 ];
 
+const ydsa = `
+Cassie B
+`;
+
 const branches = [
   { name: 'Bronx/Upper Manhattan', id: 'bum' },
   { name: 'Central Brooklyn', id: 'cbk' },
@@ -210,6 +213,7 @@ const branches = [
   { name: 'North Brooklyn', id: 'nbk' },
   { name: 'Queens', id: 'queens' },
   { name: 'South Brooklyn', id: 'sbk' },
+  { name: 'YDSA', id: 'ydsa' },
 ];
 ---
 
@@ -272,6 +276,9 @@ const branches = [
       </BranchDelegates>
 
       <BranchDelegates id="sbk" name="South Brooklyn / SI" texture="bg-tex-1" rawList={sbk} alternates={sbkAlternates}>
+      </BranchDelegates>
+
+      <BranchDelegates id="ydsa" name="YDSA" texture="bg-tex-3" rawList={ydsa}>
       </BranchDelegates>
 
       <BackToTop />
